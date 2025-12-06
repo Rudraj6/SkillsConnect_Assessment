@@ -80,6 +80,9 @@ This repository contains a full-stack web application developed for the technica
 * A **DB Trigger** is implemented on the **`Users`** table.
 * The trigger automatically populates and maintains the **`full_name`** column whenever a new user is inserted or an existing user's `first_name` or `last_name` is updated.
 
+
+### 🎥 Demonstration Video & Proof of Compliance
+**Video Link:** [https://youtu.be/XcEMiSA4wA4]
 ### 3. Omissions from the Checklist
 Due to time constraints, the following features specified in the Backend Requirements were **not implemented**:
 * `Email simulation stored in email_logs`
