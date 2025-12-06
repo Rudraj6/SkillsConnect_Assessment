@@ -1,45 +1,88 @@
-# SkillsConnect_Assessment
-# MERN Full Stack Assessment - Task 002: User/Contact/Task Management System
+# Full Stack Assessment (Task No. 002): CRM Management System
 
 ## 🚀 Project Overview
 
-[cite_start]This repository contains a complete full-stack web application developed as part of a technical assessment (Task No. 002)[cite: 1]. The application is a secure, token-based system for managing users, contacts, and tasks, built according to strict technical and architectural requirements.
+This repository contains a full-stack web application developed for the technical assessment (Task No. 002). The application serves as a comprehensive management system for **Users, Contacts, and Tasks**, built with a strong focus on security, data integrity, and strict adherence to the assessment's technical constraints.
 
-## 🛠️ Technology Stack
+### Key Functional Requirements:
+* Secure token-based authentication (15-minute expiry).
+* CRUD operations for Users, Contacts, Contact Addresses, and Tasks.
+* Enforcement of unique constraints at the database level.
+* Automatic user detail management via a Database Trigger.
+
+## 🛠️ Technology Stack Used
 
 | Component | Technology | Note |
 | :--- | :--- | :--- |
-| **Frontend** | React / Next.js | [cite_start]Developed without external UI libraries, focusing on a **Clean UI**[cite: 57, 58, 69]. |
-| **Backend** | Node.js (Express) | [cite_start]Handles business logic, authentication, and database interaction[cite: 48]. |
-| **Database** | MySQL (Original Requirement) | [cite_start]Schema enforced with unique constraints and triggers[cite: 49]. |
-| **Authentication** | JWT + bcrypt | [cite_start]Uses **bcrypt** for secure password hashing[cite: 50]. |
+| **Backend** | Node.js / Express | Handles all API routing and business logic. |
+| **Frontend** | React / Next.js | Provides a responsive, required **Clean UI**. **No external UI libraries** were used. |
+| **Database** | MySQL | All schema constraints, keys, and triggers are enforced here. |
+| **Authentication** | JWT + bcrypt | **bcrypt** is used for password hashing; JWT is used for session management. |
 
-## ✨ Key Features & Technical Compliance
+## ⚙️ Setup & Installation Steps
 
-### Backend Features
-* [cite_start]**Secure Authentication:** Implemented **Token-based authentication** with a strict **15-minute expiry**[cite: 51, 67].
-* [cite_start]**Data Integrity:** Unique constraints are enforced for user `email` and `phone`[cite: 66].
-* [cite_start]**DB Trigger Automation:** The `full_name` field in the Users table is automatically calculated and maintained by a **Database Trigger**[cite: 53, 64].
-* [cite_start]**Logging:** Includes a **logging middleware** to track server activity and requests[cite: 52].
-* [cite_start]**Email Simulation:** All outgoing email events (e.g., registration or task notification) are simulated and logged into the dedicated **`Email Logs`** table[cite: 54, 68].
+### Prerequisites
+* Node.js (v16+)
+* MySQL Database Server
+* A preferred MySQL Client (e.g., MySQL Workbench, DBeaver)
 
-### Frontend Features
-* [cite_start]**State Management:** Auth token is securely stored in `localStorage`[cite: 59].
-* [cite_start]**Security Logic:** Implements **automatic user logout** upon **15-minute token expiry**[cite: 60, 67].
-* **Required Pages:** Includes dedicated views for:
-    * Login & Registration
-    * Dashboard
-    * Contacts
-    * Address Management
-    * [cite_start]Tasks Management [cite: 61]
+### 1. Database Configuration
 
-## 📊 Database Schema Highlights
+1.  Create a new, empty MySQL database (e.g., `crm_assessment_db`).
+2.  Import the provided database dump file: `database/crm_database_dump.sql`. This file contains the complete schema (5 tables) and initial data.
 
-The application uses a normalized schema across five main tables:
+### 2. Backend Setup (`backend/`)
 
-1.  [cite_start]**Users:** Stores user profiles, including the DB-maintained `full_name`[cite: 6, 64].
-2.  [cite_start]**Users Contact:** Stores user-owned contacts, enforcing `contact_number` uniqueness per user[cite: 9, 13].
-3.  [cite_start]**Contact Address:** Detailed addresses linked to contacts[cite: 21].
-4.  [cite_start]**Users Task:** Tracks tasks, ensuring the associated `contact_id` belongs to the creating `user_id`[cite: 36, 37].
-5.  [cite_start]**Email Logs:** Stores records of all simulated email activity for auditing[cite: 39].
+1.  Navigate into the backend directory:
+    ```bash
+    cd backend
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Create a **`.env`** file based on the provided example. Set your database credentials and a strong `JWT_SECRET`.
 
+### 3. Frontend Setup (`frontend/`)
+
+1.  Navigate into the frontend directory:
+    ```bash
+    cd frontend
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Create a **`.env.local`** file and set the backend API URL (e.g., `NEXT_PUBLIC_API_URL=http://localhost:4000/api`).
+
+## ▶️ How to Run the Project
+
+1.  **Start the Backend Server (Port 4000):**
+    ```bash
+    cd backend
+    npm start
+    ```
+2.  **Start the Frontend Application (Port 3000):**
+    ```bash
+    cd frontend
+    npm run dev
+    ```
+3.  Open your browser to `http://localhost:3000` to access the application.
+
+## 📝 Additional Notes, Assumptions, and Clarifications
+
+### 1. Token Expiry Handling
+* The token is set to expire after **15 minutes**.
+* The frontend stores the token in **`localStorage`**.
+* The frontend handles the **auto-logout** by checking for a `401 Unauthorized` response on authenticated API calls, clearing the local token, and redirecting the user to the Login page.
+
+### 2. Database Trigger Implementation
+* A **DB Trigger** is implemented on the **`Users`** table.
+* The trigger automatically populates and maintains the **`full_name`** column whenever a new user is inserted or an existing user's `first_name` or `last_name` is updated.
+
+### 3. Omissions from the Checklist
+Due to time constraints, the following features specified in the Backend Requirements were **not implemented**:
+* `Email simulation stored in email_logs`
+* `Logging middleware`
+
+The rest of the checklist requirements have been met and are demonstrated in the accompanying video.
